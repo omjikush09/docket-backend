@@ -10,14 +10,20 @@ const userSechma = new mongoose_1.Schema({
     email: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true
+    },
+    salt: {
+        type: String
     },
     encry_passward: {
         type: String,
+        trim: true
     },
     upcomingEvent: {
         type: [mongoose_1.Schema.Types.ObjectId],
         ref: "event"
     }
 }, { timestamps: true });
-exports.default = (0, mongoose_1.model)("Model", userSechma);
+// userSechma.plugin(passportLocalMongoose);
+exports.default = (0, mongoose_1.model)("User", userSechma);

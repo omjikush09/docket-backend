@@ -1,10 +1,11 @@
 import {Schema,model,Types} from "mongoose"
-
+import passportLocalMongoose from "passport-local-mongoose"
 interface User{
     name:String;
     email:String;
     encry_passward:String;
     upcomingEvent:Types.ObjectId
+    salt:String;
 }
 
 
@@ -17,10 +18,15 @@ const userSechma =new Schema<User>({
     email:{
         type:String,
         required:true,
-        trim:true
+        trim:true,
+        unique:true
+    },
+    salt:{
+        type:String
     },
     encry_passward:{
         type:String,
+        trim:true
     },
     upcomingEvent:{
         type:[Schema.Types.ObjectId],
@@ -28,4 +34,7 @@ const userSechma =new Schema<User>({
     }
 },{timestamps:true})
 
-export default model("Model",userSechma);
+// userSechma.plugin(passportLocalMongoose);
+
+export default model("User",userSechma);
+
